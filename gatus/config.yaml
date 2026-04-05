@@ -18,8 +18,8 @@ endpoints:
         send-on-resolved: true
         description: "Everything's burning AAAAAHHHHHHHHHHHHHHH"
 
-  - name: example
-    url: "https://twin.sh/health"
+  - name: Gatus App
+    url: "localhgost:8080"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
