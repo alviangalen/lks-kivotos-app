@@ -41,4 +41,15 @@ jobs:
           docker tag lks-gatus:latest 442908905515.dkr.ecr.us-east-1.amazonaws.com/lks-gatus:${{ github.sha }}
           docker push 442908905515.dkr.ecr.us-east-1.amazonaws.com/lks-gatus:latest
           docker push 442908905515.dkr.ecr.us-east-1.amazonaws.com/lks-gatus:${{ github.sha }}
-          
+      - name: Get task definition
+        id: get-task-def
+        run: |
+          aws ecs describe-task-definition --task-definition lks-gatus-app > gatus/task-definition.json
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: gatus/task-definition.json
+          service: lks-gatus-app
+          cluster: lks-oss-cluster
+        
+        
